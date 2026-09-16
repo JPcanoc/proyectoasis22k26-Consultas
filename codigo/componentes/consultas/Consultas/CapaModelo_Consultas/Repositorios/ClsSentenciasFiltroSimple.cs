@@ -6,29 +6,17 @@ using System.Text.RegularExpressions;
 
 namespace CapaModelo_Consultas
 {
-    /*
-    Inicio de código de "José Pablo Cano Cóbar" - carné: "0901-23-1727" - Fecha: "15/09/26"
-    Repositorio de la Consulta Simple. Único lugar del componente donde se arman y se
-    ejecutan las sentencias SQL del filtrado (EST-10 sección 3: el SQL vive en Modelo).
-    El valor que escribe el usuario SIEMPRE viaja como parámetro; el nombre de la tabla
-    y el del campo no se pueden parametrizar en SQL, así que se validan contra la lista
-    real de columnas antes de concatenarse.
-    */
+    // Inicio de código de "José Pablo Cano Cóbar" - carné: "0901-23-1727" - Fecha: "15/09/26"
+    
     public class ClsSentenciasFiltroSimple
     {
         private readonly ClsConexion _Conexion = new ClsConexion();
 
-        // Operadores que el Modelo acepta. Cualquier otro se rechaza.
         private static readonly string[] _OperadoresPermitidos =
         {
             "=", "<>", ">", "<", ">=", "<=", "LIKE"
         };
 
-        /// <summary>
-        /// Devuelve los nombres de las columnas de una tabla, en el orden en que
-        /// están definidas. Se usa para poblar el combo de campos y, sobre todo,
-        /// como lista blanca para validar el campo que llega desde la Vista.
-        /// </summary>
         public List<string> ConsultasFuncObtenerCampos(string NombreTabla)
         {
             ConsultasMetValidarIdentificador(NombreTabla, "tabla");
@@ -61,10 +49,9 @@ namespace CapaModelo_Consultas
             return Campos;
         }
 
-        /// <summary>
-        /// Trae una página de registros de la tabla aplicando un filtro opcional.
-        /// Si Campo u Operador vienen vacíos, devuelve la tabla sin filtrar.
-        /// </summary>
+
+        // Trae una página de registros de la tabla aplicando un filtro opcional.
+        // Si Campo u Operador vienen vacíos, devuelve la tabla sin filtrar.
         public DataTable ConsultasFuncFiltrarTabla(
             string NombreTabla,
             string Campo,
@@ -120,10 +107,9 @@ namespace CapaModelo_Consultas
             return DtResultado;
         }
 
-        /// <summary>
-        /// Cuenta cuántos registros cumplen el filtro. Lo necesita la paginación
-        /// para saber cuántas páginas dibujar.
-        /// </summary>
+
+        // Cuenta cuántos registros cumplen el filtro. Lo necesita la paginación
+        // para saber cuántas páginas dibujar.
         public int ConsultasFuncContarFiltrados(
             string NombreTabla,
             string Campo,
@@ -173,10 +159,6 @@ namespace CapaModelo_Consultas
                 && !string.IsNullOrWhiteSpace(Operador);
         }
 
-        /// <summary>
-        /// Un identificador de SQL (tabla o columna) no se puede parametrizar,
-        /// así que solo se aceptan nombres con forma de identificador válido.
-        /// </summary>
         private void ConsultasMetValidarIdentificador(
             string Identificador,
             string Descripcion)
@@ -195,10 +177,6 @@ namespace CapaModelo_Consultas
             }
         }
 
-        /// <summary>
-        /// Defensa real contra inyección en el nombre del campo: además de la forma,
-        /// el campo tiene que existir de verdad en la tabla.
-        /// </summary>
         private void ConsultasMetValidarCampo(string NombreTabla, string Campo)
         {
             ConsultasMetValidarIdentificador(Campo, "columna");

@@ -5,23 +5,13 @@ using CapaModelo_Consultas;
 
 namespace CapaControlador_Consultas
 {
-    /*
-    Inicio de código de "José Pablo Cano Cóbar" - carné: "0901-23-1727" - Fecha: "15/09/26"
-    Controlador de la Consulta Simple. Traduce lo que el usuario eligió en pantalla
-    ("Contiene", "Comienza con"...) al operador de SQL que entiende el Modelo, y le
-    prepara el valor con los comodines que correspondan. No arma sentencias SQL:
-    eso es responsabilidad exclusiva de la Capa Modelo (EST-10 sección 3).
-    */
+    // Inicio de código de "José Pablo Cano Cóbar" - carné: "0901-23-1727" - Fecha: "15/09/26"
+   
     public class ClsControladorFiltroSimple
     {
         private readonly ClsSentenciasFiltroSimple _Sentencias =
             new ClsSentenciasFiltroSimple();
 
-        /// <summary>
-        /// Lista de campos de la tabla, para poblar el combo de la Vista.
-        /// Devuelve texto, no controles: el Modelo y el Controlador no conocen
-        /// System.Windows.Forms.
-        /// </summary>
         public List<string> ConsultasFuncObtenerCampos(string NombreTabla)
         {
             if (string.IsNullOrWhiteSpace(NombreTabla))
@@ -32,9 +22,8 @@ namespace CapaControlador_Consultas
             return _Sentencias.ConsultasFuncObtenerCampos(NombreTabla);
         }
 
-        /// <summary>
-        /// Operadores que se le ofrecen al usuario en el combo, en el texto que él lee.
-        /// </summary>
+
+        // Operadores que se le ofrecen al usuario en el combo, en el texto que él lee.
         public List<string> ConsultasFuncObtenerOperadores()
         {
             return new List<string>
@@ -51,9 +40,8 @@ namespace CapaControlador_Consultas
             };
         }
 
-        /// <summary>
-        /// Ejecuta la búsqueda filtrada y devuelve la página pedida.
-        /// </summary>
+        // Ejecuta la búsqueda filtrada y devuelve la página pedida.
+
         public DataTable ConsultasFuncBuscar(
             string NombreTabla,
             string Campo,
@@ -74,9 +62,8 @@ namespace CapaControlador_Consultas
                 RegistrosPorPagina);
         }
 
-        /// <summary>
-        /// Total de registros que cumplen el filtro, para la paginación.
-        /// </summary>
+
+        // Total de registros que cumplen el filtro, para la paginación.
         public int ConsultasFuncContar(
             string NombreTabla,
             string Campo,
@@ -93,10 +80,10 @@ namespace CapaControlador_Consultas
                 ValorSql);
         }
 
-        /// <summary>
-        /// Valida lo que el usuario llenó antes de ir a la base de datos.
-        /// Devuelve null si todo está bien, o el mensaje a mostrar si falta algo.
-        /// </summary>
+
+        // Valida lo que el usuario llenó antes de ir a la base de datos.
+        // Devuelve null si todo está bien, o el mensaje a mostrar si falta algo.
+
         public string ConsultasFuncValidarFiltro(
             string Campo,
             string OperadorVisible,
